@@ -21,10 +21,10 @@ classdef HandELeft < RobotBaseClass
 
             %[THETA D A ALPHA SIGMA]
             link(1) = Link('d',0.1452,'a',0,'alpha',pi/2,'qlim',deg2rad([-360 360]), 'offset',0);
-            link(2) = Link('d',0,'a',-0.429,'alpha',0,'qlim', deg2rad([-360 360]), 'offset',0);
-            link(3) = Link('d',0,'a',-0.4115,'alpha',0,'qlim', deg2rad([-360 360]), 'offset', 0);
-            link(4) = Link('d',0.106,'a',0,'alpha',pi/2,'qlim',deg2rad([-360 360]),'offset', 0);
-            link(5) = Link('d',0.1135,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360,360]), 'offset',0);
+            link(2) = Link('d',0,'a',-0.24355,'alpha',0,'qlim', deg2rad([-360 360]), 'offset',0);
+            link(3) = Link('d',0,'a',-0.2132,'alpha',0,'qlim', deg2rad([-360 360]), 'offset', 0);
+            link(4) = Link('d',0.13105,'a',0,'alpha',pi/2,'qlim',deg2rad([-360 360]),'offset', 0);
+            link(5) = Link('d',0.08535,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360,360]), 'offset',0);
             link(6) = Link('d',	0.0921,'a',0,'alpha',0,'qlim',deg2rad([-360,360]), 'offset', 0);
 
             % Define the name property (you can customize it)
