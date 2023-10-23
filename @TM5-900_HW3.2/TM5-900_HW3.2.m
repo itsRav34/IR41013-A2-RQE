@@ -1,7 +1,7 @@
 classdef HandELeft < RobotBaseClass
 
     properties (Access = public)
-        plyFileNameStem = 'TM5-900_HW3.2';
+        plyFileNameStem = 'TM5_900_HW3_2';
     end
 
     methods
@@ -25,7 +25,7 @@ classdef HandELeft < RobotBaseClass
             % link(1).a = -0.0146;     
 
             % Define the name property (you can customize it)
-            self.name = 'TM5-900_HW3.2';
+            self.name = 'TM5_900_HW3_2';
 
             % Create the robot model
             self.model = SerialLink(link(1), 'name', self.name);
