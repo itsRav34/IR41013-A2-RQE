@@ -18,31 +18,31 @@ PlaceObject('openCurtain.ply',[3,-1,0.8]);
 baseTR = transl([-0.8,0,0])*trotz(-pi);
 r = LinearUR3(baseTR);
 r.model.animate(r.model.getpos());
-PlaceObject('emergencyStopButton.ply', [0.4,0,0]);
+PlaceObject('emergencyStopButton.ply', [-1.1,0,0]);
 
 %Placement of TM5-900 robot
-baseTR = transl([-0.8,-1.3,0])*trotz(-pi);
+baseTR = transl([-0.7,-1.0,0])*trotz(-pi);
 s = TM5(baseTR);
 s.model.animate(s.model.getpos());
-PlaceObject('emergencyStopButton.ply', [-1.2,-1.3,0]);
+PlaceObject('emergencyStopButton.ply', [-1.1,-1.0,0]);
 
 %Placement of rack and 3 test tubes coloured Red
-PlaceObject('testTubeR.ply', [-0.7,-0.6,0.05]);
-PlaceObject('testTubeR.ply', [-0.7,-0.8,0.05]);
-PlaceObject('testTubeR.ply', [-0.7,-1.0,0.05]);
-PlaceObject('testTubeRack.ply', [-0.63,-0.19,-0.2]);
+PlaceObject('testTubeR.ply', [-0.325,-0.48,0.02]);
+PlaceObject('testTubeR.ply', [-0.325,-0.55,0.02]);
+PlaceObject('testTubeR.ply', [-0.325,-0.62,0.02]);
+PlaceObject('testTubeRack.ply', [-0.3,-0.3,-0.08]);
 
 %Placement of second rack and 3 test tubes coloured Blue
-PlaceObject('testTubeB.ply', [-0.25,-0.6,0.05]);
-PlaceObject('testTubeB.ply', [-0.25,-0.8,0.05]);
-PlaceObject('testTubeB.ply', [-0.25,-1.0,0.05]);
-PlaceObject('testTubeRack.ply', [-0.18,-0.19,-0.2]);
+PlaceObject('testTubeB.ply', [-0.125,-0.48,0.02]);
+PlaceObject('testTubeB.ply', [-0.125,-0.55,0.02]);
+PlaceObject('testTubeB.ply', [-0.125,-0.62,0.02]);
+PlaceObject('testTubeRack.ply', [-0.1,-0.3,-0.08]);
 
 %Placement of third rack and 3 test tubes coloured Green
-PlaceObject('testTubeG.ply', [0.2,-0.6,0.05]);
-PlaceObject('testTubeG.ply', [0.2,-0.8,0.05]);
-PlaceObject('testTubeG.ply', [0.2,-1.0,0.05]);
-PlaceObject('testTubeRack.ply', [0.27,-0.19,-0.2]);
+PlaceObject('testTubeG.ply', [0.075,-0.48,0.02]);
+PlaceObject('testTubeG.ply', [0.075,-0.55,0.02]);
+PlaceObject('testTubeG.ply', [0.075,-0.62,0.02]);
+PlaceObject('testTubeRack.ply', [0.1,-0.3,-0.08]);
 
 placeObject('TestTubeRackWhole.ply', [0,0,0]);
 
