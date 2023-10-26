@@ -44,7 +44,7 @@ PlaceObject('testTubeG.ply', [0.075,-0.55,0.02]);
 PlaceObject('testTubeG.ply', [0.075,-0.62,0.02]);
 PlaceObject('testTubeRack.ply', [0.1,-0.3,-0.08]);
 
-placeObject('TestTubeRackWhole.ply', [0,0,0]);
+PlaceObject('TestTubeRackWhole.ply', [-0.6,-0.6,0]);
 
 PlaceObject('fireExtinguisherElevated.ply', [-2.5,1.5,0.45]);
 
