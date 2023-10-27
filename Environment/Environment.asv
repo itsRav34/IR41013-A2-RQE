@@ -15,9 +15,9 @@ PlaceObject('openCurtain.ply',[3,-1,0.8]);
 % PlaceObject('labTable.ply',[0,-2.5,0.41]);
 
 %Placement of UR3 robot
-baseLUR3 = transl([-0.8,0,0.7])*trotz(-pi);
-lur3 = LinearUR3(baseLUR3);
-lur3.model.animate(lur3.model.getpos());
+baseUR3 = transl([-0.8,0,0.7])*trotz(-pi);
+ur3 = LinearUR3(baseUR3);
+ur3.model.animate(ur3.model.getpos());
 PlaceObject('emergencyStopButton.ply', [-1.1,0,0.7]);
 
 %Placement of TM5-900 robot
