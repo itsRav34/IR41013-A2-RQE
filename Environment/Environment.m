@@ -10,7 +10,12 @@ axis([-4, 4, -4, 4, 0, 4]);
 PlaceObject('floor.ply',[0,-1,0.01]);
 PlaceObject('brickWall.ply',[3,2,0]);
 PlaceObject('brickWall2.ply',[-3,2,0]);
+<<<<<<< Updated upstream
 % PlaceObject('openCurtain.ply',[3,-1,0.8]);
+=======
+PlaceObject('brickWall3.ply',[3,2,0]);
+PlaceObject('openCurtain.ply',[3,-1,0.8]);
+>>>>>>> Stashed changes
 
 %Placement of the two lab tables
 % PlaceObject('labTable.ply',[0,0,0.41]);
