@@ -8,14 +8,11 @@ axis([-4, 4, -4, 4, 0, 4]);
 %Placement of floor, brickwalls, a light open curtain 
 % and an emergency stop button
 PlaceObject('floor.ply',[0,-1,0.01]);
-PlaceObject('brickWall.ply',[3,2,0]);
-PlaceObject('brickWall2.ply',[-3,2,0]);
-<<<<<<< Updated upstream
+PlaceObject('brickWallX.ply',[3,2,0]);
+PlaceObject('brickWallLeft.ply',[-3,2,0]);
 % PlaceObject('openCurtain.ply',[3,-1,0.8]);
-=======
-PlaceObject('brickWall3.ply',[3,2,0]);
-PlaceObject('openCurtain.ply',[3,-1,0.8]);
->>>>>>> Stashed changes
+PlaceObject('brickWallRight.ply',[3,-4,0]);
+PlaceObject('wallDoor.ply',[0.7,-4,0]);
 
 %Placement of the two lab tables
 % PlaceObject('labTable.ply',[0,0,0.41]);
@@ -71,6 +68,13 @@ PlaceObject('testTubeRack.ply', [0.1,-0.3,0.62]);
 
 
 PlaceObject('fireExtinguisherElevated.ply', [-2.5,1.5,0.45]);
+PlaceObject('fireBlanket.ply', [-2,1.6,0.7]);
+% PlaceObject('firstAidKit.ply', [-1.2,1.6,0.7]);
+PlaceObject('lightCurtain.ply', [0.5,1,0]);
+PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
+PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
+PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
+PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 
 % PlaceObject('TestTubeRackFilled.ply',[0.18,-1.6,0.72]);
 TTF = testTubeRackFilled();
