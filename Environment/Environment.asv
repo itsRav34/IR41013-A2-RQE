@@ -319,39 +319,7 @@ PlaceObject('testTubeR.ply', [-0.325,-0.55,0.72]);
 
 
 %% R2toG1
-g1startpos = [-0.5429         0   -0.6857   -1.2480    0.3491    1.5708         0];
+g1
 
-r2tog1traj = jtraj(lur3.model.getpos(), g1startpos, steps);
-
-
-for i = 1:length(r2tog1traj)
-    
-    lur3.model.animate(r2tog1traj(i,:));
-
-        drawnow();
-end
-
-%% g1 to intermediary
-
-g1starttointermediary = jtraj(lur3.model.getpos(), intermediary, steps);
-
-
-for i = 1:length(g1starttointermediary)
-    
-    lur3.model.animate(g1starttointermediary(i,:));
-
-        drawnow();
-end
-
-g1endpos = [-0.0100    0.3989   -0.6233   -1.3893    0.3491    1.5708         0];
-
-intermediarytoj1end = jtraj(lur3.model.getpos(), g1endpos ,steps);
-
-for i = 1:length(intermediarytoj1end)
-    
-    lur3.model.animate(intermediarytoj1end(i,:));
-
-        drawnow();
-end
 
 PlaceObject('testTubeG.ply', [0.075,-0.48,0.72]);
