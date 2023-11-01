@@ -1,70 +1,29 @@
-classdef testTubeRackFilled < handle
-    %TTS A class that creates a set of TTs
-    %   The TTs can be positioned and oriented manually.
+classdef testTubeRackFilled < ObjectBaseClass
+    %% LinearUR5 UR5 on a non-standard linear rail created by a studenttestTubeRackFilled
 
-    properties (Constant)
-        %> Max height is for plotting of the workspace
-        maxHeight = 10;
+    properties(Access = public)              
+        plyFileNameStem = 'testTubeRackFilled';
     end
-
-    properties
-        %> Number of TTs
-        TTCount = 0;
-
-        %> A cell structure of TTs
-        TTModel;
-
-        %> Dimensions of the workspace
-        workspaceDimensions;
-    end
-
+    
     methods
-        %% Constructors
-        function self = testTubeRackFilled()
-            self.workspaceDimensions = [-3, 3, -3, 3, 0, self.maxHeight];
-        end
-
-        %% CreateTT
-        function TTModel = CreateTT(self, x, y, z, rotation)
-            self.TTCount = self.TTCount + 1;
-
-            if nargin < 5
-                rotation = 0;
+%% Define Object Function 
+        function self = testTubeRackFilled(baseTr)
+			self.CreateModel();
+            if nargin < 1			
+				baseTr = eye(4);				
             end
-
-            TTModel = self.GetTTModel(['testTubeRackFilled', num2str(self.TTCount)]);
-            pose = transl(x,y,z) * trotz(rotation);
-            TTModel.base = pose;
-
-            % Plot 3D model
-            plot3d(TTModel, 0, 'workspace', self.workspaceDimensions, 'view', [-8, 10], 'delay', 0, 'noarrow', 'nowrist');
-
-            axis equal;
-            if isempty(findobj(get(gca, 'Children'), 'Type', 'Light'))
-                camlight;
-            end
-        end
-    end
-
-    methods (Static)
-        %% GetTTModel
-        function model = GetTTModel(name)
-            if nargin < 1
-                name = 'testTubeRackFilled';
-            end
-            [faceData, vertexData] = plyread('testTubeRackFilled.ply', 'tri');
-            link1 = Link('alpha', 0, 'a', 0, 'd', 0, 'offset', 0);
-            model = SerialLink(link1, 'name', name);
+            self.model.base = self.model.base.T * baseTr;
             
-            % Changing order of cell array from {faceData, []} to 
-            % {[], faceData} so that data is attributed to Link 1
-            % in plot3d rather than Link 0 (base).
-            model.faces = {[], faceData};
-
-            % Changing order of cell array from {vertexData, []} to 
-            % {[], vertexData} so that data is attributed to Link 1
-            % in plot3d rather than Link 0 (base).
-            model.points = {[], vertexData};
+            self.PlotAndColourObject();         
         end
+
+%% Create the Object model
+        function CreateModel(self)   
+            % Create the UR3 model mounted on a linear rail
+            link(1) = Link('d',0.13,'a',0.0,'alpha', 0.0,'offset',0);
+            
+            self.model = SerialLink(link,'name',self.name);
+        end
+     
     end
 end
