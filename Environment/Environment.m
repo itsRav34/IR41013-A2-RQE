@@ -90,7 +90,7 @@ lur3 = LinearUR3(baseLUR3);
 % lur3.model.animate(lur3.model.getpos());
 lur3startpos = [-0.0100         0         0         0         0   -1.5708         0];
 lur3.model.animate(lur3startpos);
-PlaceObject('emergencyStopButton.ply', [0.1,0,0.7]);
+PlaceObject('emergencyStopWallMounted.ply', [0.8,1.8,1]);
 
 fprintf('Creating TM5-900');
 %Placement of TM5-900 robot
@@ -99,7 +99,7 @@ tm5 = TM5(baseTM5);
 tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 % tm5.model.animate(tm5.model.getpos());
 tm5.model.animate(tm5startpos);
-PlaceObject('emergencyStopButton.ply', [0.1,-1.5,0.7]);
+% PlaceObject('emergencyStopButton.ply', [0.1,-1.5,0.7]);
 
 tm5.model.teach(tm5.model.getpos());
 
