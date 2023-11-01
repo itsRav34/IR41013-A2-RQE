@@ -34,7 +34,7 @@ TTR = testTubeR();
 % PlaceObject('testTubeR.ply', [-0.325,-0.62,0.72]);
 
 %% RED TEST TUBE RACK
-PlaceObject('testTubeRack.ply', [-0.3,-0.3,0.62]);
+PlaceObject('testTubeRack.ply', [-0.3,-0.8,0.62]);
 
 %Placement of second rack and 3 test tubes coloured Blue
 TTB = testTubeB();
@@ -49,7 +49,7 @@ TTB = testTubeB();
 % PlaceObject('testTubeB.ply', [-0.125,-0.62,0.72]);
 
 %% BLUE TEST TUBE RACK
-PlaceObject('testTubeRack.ply', [-0.1,-0.3,0.62]);
+PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
 
 %Placement of third rack and 3 test tubes coloured Green
 TTG = testTubeG();
@@ -63,12 +63,12 @@ TTG = testTubeG();
 % % G3 = TTG.CreateTT(0.075,-0.62,0.72, 0);
 % PlaceObject('testTubeG.ply', [0.075,-0.62,0.72]);
 %% GREEN TEST TUBE RACK
-PlaceObject('testTubeRack.ply', [0.1,-0.3,0.62]);
+PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
 
 
 
 PlaceObject('fireExtinguisherElevated.ply', [-2.5,1.5,0.45]);
-PlaceObject('fireBlanket.ply', [-2,1.6,0.7]);
+PlaceObject('fireBlanket.ply', [-2,1.7,0.7]);
 % PlaceObject('firstAidKit.ply', [-1.2,1.6,0.7]);
 PlaceObject('lightCurtain.ply', [0.5,1,0]);
 PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
@@ -79,23 +79,23 @@ PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 % PlaceObject('TestTubeRackFilled.ply',[0.18,-1.6,0.72]);
 TTF = testTubeRackFilled();
 
-TTF1 = TTF.CreateTT(0.18,-1.6,0.72,0);
+TTF1 = TTF.CreateTT(-0.7,-1.6,0.72,0);
 
 %Placement of UR3 robot
-baseLUR3 = transl([0.0,0,0.7])*trotz(0);
+baseLUR3 = transl([0,-0.5,0.7])*trotz(0);
 lur3 = LinearUR3(baseLUR3);
 % lur3.model.animate(lur3.model.getpos());
 lur3startpos = [-0.0100         0         0         0         0   -1.5708         0];
 lur3.model.animate(lur3startpos);
-PlaceObject('emergencyStopButton.ply', [-1.1,0,0.7]);
+PlaceObject('emergencyStopButton.ply', [0.1,0,0.7]);
 
 %Placement of TM5-900 robot
-baseTM5 = transl([-0.3,-1.0,0.7])*trotz(-pi);
+baseTM5 = transl([-0.3,-1.5,0.7])*trotz(-pi);
 tm5 = TM5(baseTM5);
 tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 % tm5.model.animate(tm5.model.getpos());
 tm5.model.animate(tm5startpos);
-% PlaceObject('emergencyStopButton.ply', [-1.1,-1.0,0.7]);
+PlaceObject('emergencyStopButton.ply', [0.1,-1.5,0.7]);
 
 tm5.model.teach(tm5.model.getpos());
 
