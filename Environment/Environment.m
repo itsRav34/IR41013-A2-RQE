@@ -7,6 +7,8 @@ fprintf('Initialising Environment...\n');
 
 axis([-4, 4, -4, 4, 0, 4]);
 
+tableheight = 0.7;
+
 %Placement of floor, brickwalls, a light open curtain 
 % and an emergency stop button
 PlaceObject('floor.ply',[0,-1,0.01]);
@@ -98,25 +100,10 @@ tm5 = TM5(baseTM5);
 tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 tm5.model.animate(tm5startpos);
 
-% PlaceObject('emergencyStopButton.ply', [0.1,-1.5,0.7]);
 
+%% TO BE DELETED %%
 tm5.model.teach(tm5.model.getpos());
-
-
-
-
-% r1finalpos = [-0.325,-0.48,0.72];
-% r2finalpos = [-0.325,-0.55,0.72];
-% r3finalpos = [-0.325,-0.62,0.72];
-% 
-% g1finalpos = [0.075,-0.48,0.72];
-% g2finalpos = [0.075,-0.55,0.72];
-% g3finalpos = [0.075,-0.62,0.72];
-% 
-% b1finalpos = [-0.125, -0.48, 0.72];
-% b2finalpos = [-0.125,-0.55,0.72];
-% b3finalpos = [-0.125,-0.62,0.72];
-% 
+%%
 
 fprintf('Press Enter to continue:\n')
 pause();
@@ -163,8 +150,6 @@ TTRF = testTubeRackEmpty(transl(transl(TTF1.model.base)));
 clear TTF1;
 
 
-% PlaceObject('TestTubeRackWhole.ply', [-0.6,-0.6,0.7]);
-
 %% TM5 moves up to see all test tubes
 
 endpos = [1.5708   -1.3334    0.7854   -1.0228   -1.0472    1.5708];
@@ -194,25 +179,28 @@ end
 
 %% testtube start locations
 
-r1startlocation = lur3.model.fkineUTS(lur3sortstart)*transl(0,-0.48,-0.122);
-
-r2startlocation = r1startlocation*transl(-0.08,0,0);
-
-r3startlocation = 0;
-
-g1startlocation = 0;
-
-g2startlocation = 0;
-
-g3startlocation = 0;
-
-b1startlocation = 0;
-
-b2startlocation = 0;
-
-b3startlocation = 0;
+R1o = transl(-0.1764,0.1638, tableheight+0.02);
+R1 = testTubeR(R1o);
+R2o = transl(-0.1134,0.1638,tableheight+0.02);
+R2 = testTubeR(R2o);
+R3o = transl(-0.0260476, 0.114042, tableheight+0.02);
+R3 = testTubeR(R3o);
 
 
+G1o = transl(-0.0263046,0.1638, tableheight+0.02);
+G1 = testTubeG(G1o);
+G2o = transl(-0.1134,0.114042,tableheight+0.02);
+G2 = testTubeG(G2o);
+G3o = transl(-0.02540471, 0.041001, tableheight+0.02);
+G3 = testTubeG(G3o);
+
+
+B1o = transl(-0.1764,0.114042, tableheight+0.02);
+B1 = testTubeB(B1o);
+B2o = transl(-0.1764,0.041001,tableheight+0.02);
+B2 = testTubeB(B2o);
+B3o = transl(-0.1134, 0.041001, tableheight+0.02);
+B3 = testTubeB(B3o);
 
 %% LUR3 moves to R1
 
