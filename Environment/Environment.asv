@@ -76,6 +76,9 @@ PlaceObject('lightCurtain.ply', [0.5,1,0]);
 PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
 PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
 PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
+PlaceObject('lightCurtain5.ply', [0.5,0.8,0]);
+PlaceObject('lightCurtain6.ply', [0.5,-3.3,0]);
+
 PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 
 % PlaceObject('TestTubeRackFilled.ply',[0.18,-1.6,0.72]);
@@ -121,23 +124,23 @@ tm5.model.teach(tm5.model.getpos());
 % b2initial= 0;
 % b3initial= 0;
 % 
+% r1finalpos = [-0.325,-0.48,0.72];
+% r2finalpos = [-0.325,-0.55,0.72];
+% r3finalpos = [-0.325,-0.62,0.72];
 % 
+% g1finalpos = [0.075,-0.48,0.72];
+% g2finalpos = [0.075,-0.55,0.72];
+% g3finalpos = [0.075,-0.62,0.72];
 % 
+% b1finalpos = [-0.125, -0.48, 0.72];
+% b2finalpos = [-0.125,-0.55,0.72];
+% b3finalpos = [-0.125,-0.62,0.72];
 % 
-% 
-r1finalpos = [-0.325,-0.48,0.72];
-r2finalpos = [-0.325,-0.55,0.72];
-r3finalpos = [-0.325,-0.62,0.72];
 
-g1finalpos = [0.075,-0.48,0.72];
-g2finalpos = [0.075,-0.55,0.72];
-g3finalpos = [0.075,-0.62,0.72];
-
-b1finalpos = [-0.125, -0.48, 0.72];
-b2finalpos = [-0.125,-0.55,0.72];
-b3finalpos = [-0.125,-0.62,0.72];
-
+fprintf('Press Enter to continue:\n')
 pause();
+
+fprintf('RETRIEVING SAMPLES...\n')
 
 %% TM5 MOVES FROM START POS TO TEST TUBE RACK WITH ASSORTED TEST TUBES
 
@@ -164,16 +167,35 @@ for i = 1:length(movefromTTtostartpos)
     
     tm5.model.animate(movefromTTtostartpos(i,:))
         
-        TM5pos = tm5.model.fkineUTS(tm5.model.getpos());
-        TTF1.model.base = tm5.model.fkine(tm5.model.getpos());
+        TM5pos = transl(transl(tm5.model.fkineUTS(tm5.model.getpos())))*transl(0,0,-0.2);
+        flip = trotx(0,'deg');
+        TTF1.model.base = TM5pos*flip;
         TTF1.model.animate(0);
         drawnow();
 end
 
-TTF1.model.base = transl([-0.6,-0.6,0.7])* trotx(0)*troty(0)*trotz(0);
-TTF1.model.animate(0);
+% TTF1.model.base = transl([-0.6,-0.6,0.7])* trotx(0)*troty(0)*trotz(0);
+% TTF1.model.animate(0);
+
+TTRF = testTubeRackEmpty(TTF1.model.base);
+
+clear TTF1;
+
 
 % PlaceObject('TestTubeRackWhole.ply', [-0.6,-0.6,0.7]);
+
+%% TM5 moves up to see all test tubes
+
+endpos = [-0.6732   -1.4337   -1.0735   -1.8700    1.6955    4.1233];
+
+tm5endtraj = jtraj(tm5.model.getpos(), endpos, steps);
+
+for i = 1:length(tm5endtraj)
+    
+    tm5.model.animate(tm5endtraj(i,:))
+
+        drawnow();
+end
 
 %% MOVE LUR3 from start to sort start
 
@@ -208,20 +230,6 @@ b1startlocation = 0;
 b2startlocation = 0;
 
 b3startlocation = 0;
-
-%% TM5 moves up to see all test tubes
-
-endpos = [-0.6732   -1.4337   -1.0735   -1.8700    1.6955    4.1233];
-
-tm5endtraj = jtraj(tm5.model.getpos(), endpos, steps);
-
-for i = 1:length(tm5endtraj)
-    
-    tm5.model.animate(tm5endtraj(i,:))
-
-        drawnow();
-end
-
 
 
 
