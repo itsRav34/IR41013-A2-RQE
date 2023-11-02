@@ -3,11 +3,26 @@ close all
 clc
 hold on
 
+% gui = GUI;
+
 tableheight = 0.7;
 
 fprintf('Initialising Environment...\n');
+
 %set environment axis
 axis([-4, 4, -4, 4, 0, 4]);
+
+% Estop;
+
+
+
+
+
+
+
+
+
+
 
 
 %% SAFETY OBJECTS
@@ -35,15 +50,38 @@ PlaceObject('LabTable2.ply', [0.2,0.2,0]);
 PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
 
 %% RED TEST TUBE RACK
-REDSORTEDTTR = testTubeRack([-0.3,-0.8,0.62]);
+REDSORTEDTTR = testTubeRack(transl(-0.7,-0.8,0.62)*trotz(deg2rad(90)));
+
+REDlocation1 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+REDlocation2 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+REDlocation3 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
 
 %% BLUE TEST TUBE RACK
-% PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
+BLUESORTEDTTR = testTubeRack(transl(-0.4,-0.8,0.62)*trotz(deg2rad(90)));
+
+BLUElocation1 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+BLUElocation2 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+BLUElocation3 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
 
 %% GREEN TEST TUBE RACK
 % PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
+GREENSORTEDTTR = testTubeRack(transl(-0.1,-0.8,0.62)*trotz(deg2rad(90)));
 
-TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
+GREENlocation1 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+GREENlocation2 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+GREENlocation3 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
+%%
+
+% TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
+TTF1 = testTubeRackFilled(transl(0.13,-2.08,0.72));
+
+%%
 
 fprintf('Creating LUR3\n');
 %Placement of UR3 robot
@@ -86,7 +124,8 @@ end
 
 %% TM5 MOVES ASSORTED TEST TUBE RACK TO SORTING START POS
 
-TTFsortstartlocation = [-0.6732   -1.9074   -1.8035   -1.0223    1.6955    4.1233];
+% TTFsortstartlocation = [-0.6732   -1.9074   -1.8035   -1.0223    1.6955    4.1233];
+TTFsortstartlocation = [-0.8602   -2.0071   -1.7453   -0.8727    1.6955    4.1233];
 
 movefromTTtostartpos = jtraj(tm5.model.getpos(), TTFsortstartlocation, steps);
 
@@ -101,12 +140,7 @@ for i = 1:length(movefromTTtostartpos)
         drawnow();
 end
 
-% TTF1.model.base = transl([-0.6,-0.6,0.7])* trotx(0)*troty(0)*trotz(0);
-% TTF1.model.animate(0);
-
 TTRE = testTubeRackEmpty(transl(transl(TTF1.model.base)));
-
-clear TTF1;
 
 %% TEST TUBE LOCATIONS
 
@@ -135,6 +169,8 @@ B1 = testTubeB(transl(B1o));
 B2 = testTubeB(transl(B2o));
 B3 = testTubeB(transl(B3o));
 
+clear TTF1;
+
 %% TM5 moves up to see all test tubes
 
 endpos = [1.5708   -1.3334    0.7854   -1.0228   -1.0472    1.5708];
@@ -150,7 +186,7 @@ end
 
 %% MOVE LUR3 from start to sort start
 
-lur3sortstart = [-0.6840         0   -0.6233   -1.3422    0.3491    1.5708         0];
+lur3sortstart = [-0.6370         0   -0.0374   -2.2016    0.7979    1.4960   -3.4616];
 
 sortstarttraj = jtraj(lur3.model.getpos(), lur3sortstart, steps);
 
@@ -161,7 +197,9 @@ end
 
 %% LUR3 moves to R1
 assumeR1 = [-0.6840         0   -0.6233   -1.3422    0.3491   1.5708         0];
-lur3toR1 = lur3.model.ikcon(SE3(transl(R1.model.base)),R1.model.getpos());%, assumeR1);
+q=[-0.7122         0   -0.0873   -2.2842   -0.7480   -1.5708    0.4829];
+lur3R1 = (transl(transl(R1.model.base))*transl(0,0,0.13))*trotx(deg2rad(180));
+lur3toR1 = lur3.model.ikcon(lur3R1,lur3.model.getpos());%'mask',[1,1,1,1,1,1]); %mask',[1,1,1,0,0,0]);%, assumeR1);
 
 
 
@@ -173,6 +211,10 @@ for i = 1:length(r1starttraj)
 
         drawnow();
 end
+
+RaiseRobot(lur3, lur3.model.getpos())
+
+%%
 
 % currenteepos = lur3.model.fkineUTS(lur3.model.getpos());
 % 
