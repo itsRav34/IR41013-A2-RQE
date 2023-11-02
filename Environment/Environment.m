@@ -3,73 +3,32 @@ close all
 clc
 hold on
 
-fprintf('Initialising Environment...\n');
 
-axis([-4, 4, -4, 4, 0, 4]);
 
 tableheight = 0.7;
 
-%Placement of floor, brickwalls, a light open curtain 
+fprintf('Initialising Environment...\n');
+%set environment axis
+axis([-4, 4, -4, 4, 0, 4]);
+
+
+
+
+
+
+
+
+
+
+
+%% SAFETY OBJECTS
+%Placement of floor, brickwalls, a light curtain 
 % and an emergency stop button
 PlaceObject('floor.ply',[0,-1,0.01]);
 PlaceObject('brickWallX.ply',[3,2,0]);
 PlaceObject('brickWallLeft.ply',[-3,2,0]);
-% PlaceObject('openCurtain.ply',[3,-1,0.8]);
 PlaceObject('brickWallRight.ply',[3,-4,0]);
 PlaceObject('wallDoor.ply',[0.7,-4,0]);
-
-%Placement of the two lab tables
-% PlaceObject('labTable.ply',[0,0,0.41]);
-% PlaceObject('labTable.ply',[0,-2.5,0.41]);
-
-PlaceObject('LabTable2.ply', [0.2,0.2,0]);
-PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
-
-%Placement of rack and 3 test tubes coloured Red
-% TTR = testTubeR();
-%% RED TEST TUBES %%
-% % R1 = TTR.CreateTT(-0.325,-0.48,0.72, 0);
-% PlaceObject('testTubeR.ply', [-0.325,-0.48,0.72]);
-% 
-% % R2 = TTR.CreateTT(-0.325,-0.55,0.72, 0);
-% PlaceObject('testTubeR.ply', [-0.325,-0.55,0.72]);
-% 
-% % R3 = TTR.CreateTT(-0.325,-0.62,0.72, 0);
-% PlaceObject('testTubeR.ply', [-0.325,-0.62,0.72]);
-
-%% RED TEST TUBE RACK
-% PlaceObject('testTubeRack.ply', [-0.3,-0.8,0.62]);
-
-%Placement of second rack and 3 test tubes coloured Blue
-% TTB = testTubeB();
-%% BLUE TEST TUBES
-% % B1 = TTB.CreateTT(-0.125, -0.48, 0.72, 0);
-% PlaceObject('testTubeB.ply', [-0.125,-0.48,0.72]);
-% 
-% % B2 = TTB.CreateTT(-0.125,-0.55,0.72, 0);
-% PlaceObject('testTubeB.ply', [-0.125,-0.55,0.72]);
-% 
-% % B3 = TTB.CreateTT(-0.125,-0.62,0.72, 0);
-% PlaceObject('testTubeB.ply', [-0.125,-0.62,0.72]);
-
-%% BLUE TEST TUBE RACK
-% PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
-
-%Placement of third rack and 3 test tubes coloured Green
-% TTG = testTubeG();
-%% GREEN TEST TUBES
-% % G1 = TTG.CreateTT(0.075,-0.48,0.72, 0);
-% PlaceObject('testTubeG.ply', [0.075,-0.48,0.72]);
-% 
-% % G2 = TTG.CreateTT(0.075,-0.55,0.72, 0); 
-% PlaceObject('testTubeG.ply', [0.075,-0.55,0.72]);
-% 
-% % G3 = TTG.CreateTT(0.075,-0.62,0.72, 0);
-% PlaceObject('testTubeG.ply', [0.075,-0.62,0.72]);
-%% GREEN TEST TUBE RACK
-% PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
-
-
 
 PlaceObject('fireExtinguisherElevated.ply', [-2.5,1.5,0.45]);
 PlaceObject('fireBlanket.ply', [-2,1.7,0.7]);
@@ -80,8 +39,21 @@ PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
 PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
 PlaceObject('lightCurtain5.ply', [0.5,0.8,0]);
 PlaceObject('lightCurtain6.ply', [0.5,-3.3,0]);
-
 PlaceObject('cardReader.ply', [0.7,-4,0.6]);
+
+%Placement of the two lab tables
+PlaceObject('LabTable2.ply', [0.2,0.2,0]);
+PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
+
+%% RED TEST TUBE RACK
+REDSORTEDTTR = testTubeRack(transl(-0.3,-0.8,0.62));
+
+%% BLUE TEST TUBE RACK
+BLUESORTEDTTR = testTubeRack(transl(-0.1,-0.8,0.62));
+
+%% GREEN TEST TUBE RACK
+% PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
+GREENSORTEDTTR = testTubeRack(transl(0.1,-0.8,0.62));
 
 TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
 
@@ -101,7 +73,7 @@ tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 tm5.model.animate(tm5startpos);
 
 
-%% TO BE DELETED %%
+%% TO BE DELETED %%-----------------------------------------------------------------------------------------------------
 tm5.model.teach(tm5.model.getpos());
 %%
 
@@ -113,7 +85,6 @@ fprintf('RETRIEVING SAMPLES...\n')
 %% TM5 MOVES FROM START POS TO TEST TUBE RACK WITH ASSORTED TEST TUBES
 
 steps = 100;
-
 
 tm5grabrack = [2.3562   -2.1817   -1.4600   -1.0223    1.5708    4.1233];
 
@@ -145,10 +116,36 @@ end
 % TTF1.model.base = transl([-0.6,-0.6,0.7])* trotx(0)*troty(0)*trotz(0);
 % TTF1.model.animate(0);
 
-TTRF = testTubeRackEmpty(transl(transl(TTF1.model.base)));
+TTRE = testTubeRackEmpty(transl(transl(TTF1.model.base)));
 
 clear TTF1;
 
+%% TEST TUBE LOCATIONS
+
+R1o = TTRE.model.base*transl(transl(-0.176,0.164, 0.02));
+R2o = TTRE.model.base*transl(transl(-0.113,0.164,0.02));
+R3o = TTRE.model.base*transl(transl(-0.046,0.104,0.02));
+
+G1o = TTRE.model.base*transl(transl(-0.046,0.164,0.02));
+G2o = TTRE.model.base*transl(transl(-0.113,0.104,0.02));
+G3o = TTRE.model.base*transl(transl(-0.046, 0.041,0.02));
+
+B1o = TTRE.model.base*transl(transl(-0.176,0.104,0.02));
+B2o = TTRE.model.base*transl(transl(-0.176,0.041,0.02));
+B3o = TTRE.model.base*transl(transl(-0.113, 0.041,0.02));
+
+%% Create Test Tubes
+R1 = testTubeR(transl(R1o));
+R2 = testTubeR(transl(R2o));
+R3 = testTubeR(transl(R3o));
+
+G1 = testTubeG(transl(G1o));
+G2 = testTubeG(transl(G2o));
+G3 = testTubeG(transl(G3o));
+
+B1 = testTubeB(transl(B1o));
+B2 = testTubeB(transl(B2o));
+B3 = testTubeB(transl(B3o));
 
 %% TM5 moves up to see all test tubes
 
@@ -170,41 +167,15 @@ lur3sortstart = [-0.6840         0   -0.6233   -1.3422    0.3491    1.5708      
 sortstarttraj = jtraj(lur3.model.getpos(), lur3sortstart, steps);
 
 for i = 1:length(sortstarttraj)
-    
     lur3.model.animate(sortstarttraj(i,:))
-
         drawnow();
 end
 
-
-%% testtube start locations
-
-R1o = transl(-0.1764,0.1638, tableheight+0.02);
-R1 = testTubeR(R1o);
-R2o = transl(-0.1134,0.1638,tableheight+0.02);
-R2 = testTubeR(R2o);
-R3o = transl(-0.0260476, 0.114042, tableheight+0.02);
-R3 = testTubeR(R3o);
-
-
-G1o = transl(-0.0263046,0.1638, tableheight+0.02);
-G1 = testTubeG(G1o);
-G2o = transl(-0.1134,0.114042,tableheight+0.02);
-G2 = testTubeG(G2o);
-G3o = transl(-0.02540471, 0.041001, tableheight+0.02);
-G3 = testTubeG(G3o);
-
-
-B1o = transl(-0.1764,0.114042, tableheight+0.02);
-B1 = testTubeB(B1o);
-B2o = transl(-0.1764,0.041001,tableheight+0.02);
-B2 = testTubeB(B2o);
-B3o = transl(-0.1134, 0.041001, tableheight+0.02);
-B3 = testTubeB(B3o);
-
 %% LUR3 moves to R1
+assumeR1 = [-0.6840         0   -0.6233   -1.3422    0.3491   1.5708         0];
+lur3toR1 = lur3.model.ikine(transl(transl(R1.model.base))*transl(0,0,0.13),lur3.model.getpos(),'mask',[1,1,1,0,0,0]);%, assumeR1);
 
-lur3toR1 = [-0.6840         0   -0.6233   -1.3422    0.3491   1.5708         0];
+
 
 r1starttraj = jtraj(lur3.model.getpos(), lur3toR1, steps);
 
