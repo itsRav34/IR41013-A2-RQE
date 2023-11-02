@@ -1,13 +1,13 @@
-classdef testTubeRackFilled < ObjectBaseClass
-    %% LinearUR5 UR5 on a non-standard linear rail created by a studenttestTubeRackFilled
+classdef testTubeRackEmpty < ObjectBaseClass
+    %% LinearUR5 UR5 on a non-standard linear rail created by a studenttestTubeRackEmpty
 
     properties(Access = public)              
-        plyFileNameStem = 'testTubeRackFilled';
+        plyFileNameStem = 'testTubeRackEmpty';
     end
     
     methods
 %% Define Object Function 
-        function self = testTubeRackFilled(baseTr)
+        function self = testTubeRackEmpty(baseTr)
 			self.CreateModel();
             if nargin < 1			
 				baseTr = eye(4);				
