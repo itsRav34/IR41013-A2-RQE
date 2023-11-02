@@ -76,6 +76,9 @@ PlaceObject('lightCurtain.ply', [0.5,1,0]);
 PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
 PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
 PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
+PlaceObject('lightCurtain5.ply', [0.5,0.8,0]);
+PlaceObject('lightCurtain6.ply', [0.5,-3.3,0]);
+
 PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 
 % PlaceObject('TestTubeRackFilled.ply',[0.18,-1.6,0.72]);
