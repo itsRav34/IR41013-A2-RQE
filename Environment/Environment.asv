@@ -3,6 +3,8 @@ close all
 clc
 hold on
 
+fprintf('Initialising Environment...\n');
+
 axis([-4, 4, -4, 4, 0, 4]);
 
 %Placement of floor, brickwalls, a light open curtain 
@@ -34,7 +36,7 @@ PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
 % PlaceObject('testTubeR.ply', [-0.325,-0.62,0.72]);
 
 %% RED TEST TUBE RACK
-PlaceObject('testTubeRack.ply', [-0.3,-0.8,0.62]);
+% PlaceObject('testTubeRack.ply', [-0.3,-0.8,0.62]);
 
 %Placement of second rack and 3 test tubes coloured Blue
 % TTB = testTubeB();
@@ -49,7 +51,7 @@ PlaceObject('testTubeRack.ply', [-0.3,-0.8,0.62]);
 % PlaceObject('testTubeB.ply', [-0.125,-0.62,0.72]);
 
 %% BLUE TEST TUBE RACK
-PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
+% PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
 
 %Placement of third rack and 3 test tubes coloured Green
 % TTG = testTubeG();
@@ -63,7 +65,7 @@ PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
 % % G3 = TTG.CreateTT(0.075,-0.62,0.72, 0);
 % PlaceObject('testTubeG.ply', [0.075,-0.62,0.72]);
 %% GREEN TEST TUBE RACK
-PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
+% PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
 
 
 
@@ -79,23 +81,25 @@ PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 % PlaceObject('TestTubeRackFilled.ply',[0.18,-1.6,0.72]);
 % TTF = testTubeRackFilled();
 
-TTF1 = testTubeRackFilled(transl(-0.7,-1.6,0.72));
+TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
 
+fprintf('Creating LUR3\n');
 %Placement of UR3 robot
 baseLUR3 = transl([0,-0.5,0.7])*trotz(0);
 lur3 = LinearUR3(baseLUR3);
 % lur3.model.animate(lur3.model.getpos());
 lur3startpos = [-0.0100         0         0         0         0   -1.5708         0];
 lur3.model.animate(lur3startpos);
-PlaceObject('emergencyStopButton.ply', [0.1,0,0.7]);
+PlaceObject('emergencyStopWallMounted.ply', [0.8,1.8,1]);
 
+fprintf('Creating TM5-900\n');
 %Placement of TM5-900 robot
 baseTM5 = transl([-0.3,-1.5,0.7])*trotz(-pi);
 tm5 = TM5(baseTM5);
 tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 % tm5.model.animate(tm5.model.getpos());
 tm5.model.animate(tm5startpos);
-PlaceObject('emergencyStopButton.ply', [0.1,-1.5,0.7]);
+% PlaceObject('emergencyStopButton.ply', [0.1,-1.5,0.7]);
 
 tm5.model.teach(tm5.model.getpos());
 
@@ -140,7 +144,7 @@ pause();
 steps = 100;
 
 
-tm5grabrack = [2.3562   -2.1817   -1.4600   -1.0223    1.6955    4.1233];
+tm5grabrack = [2.3562   -2.1817   -1.4600   -1.0223    1.5708    4.1233];
 
 movefrominitialtorandTT = jtraj(tm5.model.getpos(),tm5grabrack, steps);
 
@@ -160,7 +164,7 @@ for i = 1:length(movefromTTtostartpos)
     
     tm5.model.animate(movefromTTtostartpos(i,:))
         
-
+        TM5pos = tm5.model.fkineUTS(tm5.model.getpos());
         TTF1.model.base = tm5.model.fkine(tm5.model.getpos());
         TTF1.model.animate(0);
         drawnow();
@@ -280,8 +284,8 @@ for i = 1:length(r1intertofinaltraj)
 end
 
 
-% R1 = TTR.CreateTT(-0.325,-0.48,0.72, 0);
-PlaceObject('testTubeR.ply', [-0.325,-0.48,0.72]);
+R1 = testTubeR(transl(-0.325,-0.48,0.72));
+% PlaceObject('testTubeR.ply', [-0.325,-0.48,0.72]);
 
 
 %% r1 to r2

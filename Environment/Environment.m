@@ -3,7 +3,7 @@ close all
 clc
 hold on
 
-fprintf('Initialising Environment...');
+fprintf('Initialising Environment...\n');
 
 axis([-4, 4, -4, 4, 0, 4]);
 
@@ -83,7 +83,7 @@ PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 
 TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
 
-fprintf('Creating LUR3');
+fprintf('Creating LUR3\n');
 %Placement of UR3 robot
 baseLUR3 = transl([0,-0.5,0.7])*trotz(0);
 lur3 = LinearUR3(baseLUR3);
@@ -92,7 +92,7 @@ lur3startpos = [-0.0100         0         0         0         0   -1.5708       
 lur3.model.animate(lur3startpos);
 PlaceObject('emergencyStopWallMounted.ply', [0.8,1.8,1]);
 
-fprintf('Creating TM5-900');
+fprintf('Creating TM5-900\n');
 %Placement of TM5-900 robot
 baseTM5 = transl([-0.3,-1.5,0.7])*trotz(-pi);
 tm5 = TM5(baseTM5);
@@ -136,7 +136,7 @@ g3finalpos = [0.075,-0.62,0.72];
 b1finalpos = [-0.125, -0.48, 0.72];
 b2finalpos = [-0.125,-0.55,0.72];
 b3finalpos = [-0.125,-0.62,0.72];
-
+% 
 pause();
 
 %% TM5 MOVES FROM START POS TO TEST TUBE RACK WITH ASSORTED TEST TUBES
@@ -144,7 +144,7 @@ pause();
 steps = 100;
 
 
-tm5grabrack = [2.3562   -2.1817   -1.4600   -1.0223    1.6955    4.1233];
+tm5grabrack = [2.3562   -2.1817   -1.4600   -1.0223    1.5708    4.1233];
 
 movefrominitialtorandTT = jtraj(tm5.model.getpos(),tm5grabrack, steps);
 
@@ -164,13 +164,14 @@ for i = 1:length(movefromTTtostartpos)
     
     tm5.model.animate(movefromTTtostartpos(i,:))
         
-
-        TTF1.model.base = tm5.model.fkine(tm5.model.getpos());
+        TM5pos = tm5.model.fkineUTS(tm5.model.getpos());
+        flip = trotx(180,'deg');
+        TTF1.model.base = TM5pos*flip;
         TTF1.model.animate(0);
         drawnow();
 end
 
-TTF1.model.base = transl([-0.6,-0.6,0.7])* trotx(0)*troty(0)*trotz(0);
+% TTF1.model.base = transl([-0.6,-0.6,0.7])* trotx(0)*troty(0)*trotz(0);
 TTF1.model.animate(0);
 
 % PlaceObject('TestTubeRackWhole.ply', [-0.6,-0.6,0.7]);
