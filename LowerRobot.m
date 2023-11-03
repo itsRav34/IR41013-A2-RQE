@@ -1,10 +1,10 @@
-function RaiseRobot(robot, currentpos, testtube)
+function LowerRobot(robot, currentpos, testtube)
 
 steps = 100;
 
 current = robot.model.fkineUTS(currentpos);
 
-futurepos = current*transl(0,0,-0.13);
+futurepos = current*transl(0,0,0.13);
 
 q = robot.model.ikcon(futurepos,currentpos);
 

@@ -16,15 +16,6 @@ axis([-4, 4, -4, 4, 0, 4]);
 
 
 
-
-
-
-
-
-
-
-
-
 %% SAFETY OBJECTS
 %Placement of floor, brickwalls, a light curtain 
 % and an emergency stop button
@@ -50,13 +41,22 @@ PlaceObject('LabTable2.ply', [0.2,0.2,0]);
 PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
 
 %% RED TEST TUBE RACK
-REDSORTEDTTR = testTubeRack(transl(-0.7,-0.8,0.62)*trotz(deg2rad(90)));
+REDSORTEDTTR = testTubeRack(transl(-0.9,-0.1,0.62)*trotz(deg2rad(90)));
 
 REDlocation1 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
 
 REDlocation2 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
 
 REDlocation3 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
+
+%% GREEN TEST TUBE RACK
+GREENSORTEDTTR = testTubeRack(transl(-0.7,-0.8,0.62)*trotz(deg2rad(90)));
+
+GREENlocation1 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+GREENlocation2 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+GREENlocation3 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
 
 %% BLUE TEST TUBE RACK
 BLUESORTEDTTR = testTubeRack(transl(-0.4,-0.8,0.62)*trotz(deg2rad(90)));
@@ -67,20 +67,8 @@ BLUElocation2 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
 
 BLUElocation3 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
 
-%% GREEN TEST TUBE RACK
-% PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
-GREENSORTEDTTR = testTubeRack(transl(-0.1,-0.8,0.62)*trotz(deg2rad(90)));
-
-GREENlocation1 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
-
-GREENlocation2 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
-
-GREENlocation3 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
 %%
-
-% TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
 TTF1 = testTubeRackFilled(transl(0.13,-2.08,0.72));
-
 %%
 
 fprintf('Creating LUR3\n');
@@ -97,11 +85,6 @@ baseTM5 = transl([-0.3,-1.5,0.7])*trotz(-pi);
 tm5 = TM5(baseTM5);
 tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 tm5.model.animate(tm5startpos);
-
-
-%% TO BE DELETED %%-----------------------------------------------------------------------------------------------------
-tm5.model.teach(tm5.model.getpos());
-%%
 
 fprintf('Press Enter to continue:\n')
 pause();
@@ -123,8 +106,6 @@ for i = 1:length(movefrominitialtorandTT)
 end
 
 %% TM5 MOVES ASSORTED TEST TUBE RACK TO SORTING START POS
-
-% TTFsortstartlocation = [-0.6732   -1.9074   -1.8035   -1.0223    1.6955    4.1233];
 TTFsortstartlocation = [-0.8602   -2.0071   -1.7453   -0.8727    1.6955    4.1233];
 
 movefromTTtostartpos = jtraj(tm5.model.getpos(), TTFsortstartlocation, steps);
@@ -184,22 +165,21 @@ for i = 1:length(tm5endtraj)
         drawnow();
 end
 
-%% MOVE LUR3 from start to sort start
+% %% MOVE LUR3 from start to sort start
+% 
+% lur3sortstart = [-0.6370         0   -0.0374   -2.2016    -5.5850    1.4960   -3.4616];
+% 
+% sortstarttraj = jtraj(lur3.model.getpos(), lur3sortstart, steps);
+% 
+% for i = 1:length(sortstarttraj)
+%     lur3.model.animate(sortstarttraj(i,:))
+%         drawnow();
+% end
 
-lur3sortstart = [-0.6370         0   -0.0374   -2.2016    -5.5850    1.4960   -3.4616];
-
-sortstarttraj = jtraj(lur3.model.getpos(), lur3sortstart, steps);
-
-for i = 1:length(sortstarttraj)
-    lur3.model.animate(sortstarttraj(i,:))
-        drawnow();
-end
-
-%% LUR3 moves to R1
-assumeR1 = [-0.6840         0   -0.6233   -1.3422    0.3491   1.5708         0];
-q=[-0.7122         0   -0.0873   -2.2842   -0.7480   -1.5708    0.4829];
+%% LUR3 MOVES R1
+fprintf('Sorting R1\n');
 lur3R1 = (transl(transl(R1.model.base))*transl(0,0,0.13))*trotx(deg2rad(180));
-lur3toR1 = lur3.model.ikcon(lur3R1,lur3.model.getpos());%'mask',[1,1,1,1,1,1]); %mask',[1,1,1,0,0,0]);%, assumeR1);
+lur3toR1 = lur3.model.ikcon(lur3R1,lur3.model.getpos());
 
 
 
@@ -212,137 +192,70 @@ for i = 1:length(r1starttraj)
         drawnow();
 end
 
-RaiseRobot(lur3, lur3.model.getpos())
+RaiseRobot(lur3, lur3.model.getpos(),R1);
 
-%%
+Movetolocation(lur3,REDlocation1,R1);
 
-% currenteepos = lur3.model.fkineUTS(lur3.model.getpos());
-% 
-% raisedpos = currenteepos * transl(0,0,1);
-% 
-% updatedlur3joints = lur3.model.ikcon(raisedpos);
-% 
-% liftr1 = jtraj(lur3.model.getpos(), updatedlur3joints, steps);
-% 
-% for i = 1:length(liftr1)
-% 
-%     lur3.model.animate(liftr1(i,:))
-% 
-% 
-%         drawnow();
-% end
-
-intermediary = [-0.4332         0   -0.3366   -1.2716    0.3491    1.5708         0];
+LowerRobot(lur3,lur3.model.getpos(),R1)
 
 
-%% r1 to intermediary
+%% LUR3 MOVES R2
+fprintf('Sorting R2\n');
+Movetolocation(lur3, transl(R2.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),R2)
+Movetolocation(lur3,REDlocation2,R2)
+LowerRobot(lur3,lur3.model.getpos(),R2)
 
-% r1sorted = lur3.model.ikcon(r1finalpos);
+%% LUR3 MOVES R3
+fprintf('Sorting R3\n');
+Movetolocation(lur3, transl(R3.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),R3)
+Movetolocation(lur3,REDlocation3,R3)
+LowerRobot(lur3,lur3.model.getpos(),R3)
 
-r1intertraj = jtraj(lur3.model.getpos(),intermediary,steps);
+%% LUR3 MOVES G1
+fprintf('Sorting G1\n');
+Movetolocation(lur3, transl(G1.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),G1)
+Movetolocation(lur3,GREENlocation1,G1)
+LowerRobot(lur3,lur3.model.getpos(),G1)
 
-for i = 1:length(r1intertraj);
-    
-    lur3.model.animate(r1intertraj(i,:))
+%% LUR3 MOVES G2
+fprintf('Sorting G2\n');
+Movetolocation(lur3, transl(G2.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),G2)
+Movetolocation(lur3,GREENlocation2,G2)
+LowerRobot(lur3,lur3.model.getpos(),G2)
 
-        drawnow();
-end
+%% LUR3 MOVES G3
+fprintf('Sorting G3\n');
+Movetolocation(lur3, transl(G3.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),G3)
+Movetolocation(lur3,GREENlocation3,G3)
+LowerRobot(lur3,lur3.model.getpos(),G3)
 
-%% intermediary to r1final
+%% LUR3 MOVES B1
+fprintf('Sorting B1\n');
+Movetolocation(lur3, transl(B1.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),B1)
+Movetolocation(lur3,BLUElocation1,B1)
+LowerRobot(lur3,lur3.model.getpos(),B1)
 
-r1finalpos = [-0.2294         0   -0.5610   -1.4129    0.3491    1.5708         0];
+%% LUR3 MOVES B2
+fprintf('Sorting B2\n');
+Movetolocation(lur3, transl(B2.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),B2)
+Movetolocation(lur3,BLUElocation2,B2)
+LowerRobot(lur3,lur3.model.getpos(),B2)
 
-r1intertofinaltraj = jtraj(lur3.model.getpos(), r1finalpos, steps);
+%% LUR3 MOVES B3
+fprintf('Sorting B3\n');
+Movetolocation(lur3, transl(B3.model.base))
+RaiseRobot(lur3, lur3.model.getpos(),B3)
+Movetolocation(lur3,BLUElocation3,B3)
+LowerRobot(lur3,lur3.model.getpos(),B3)
 
-for i = 1:length(r1intertofinaltraj)
-    
-    lur3.model.animate(r1intertofinaltraj(i,:));
+RaiseRobot(lur3,lur3.model.getpos());
 
-        drawnow();
-end
+fprintf('Sorting Completed!')
 
-
-R1 = testTubeR(transl(-0.325,-0.48,0.72));
-% PlaceObject('testTubeR.ply', [-0.325,-0.48,0.72]);
-
-
-%% r1 to r2
-
-r2startpos = [-0.6119         0   -0.6483   -1.2245    0.3491    1.5708         0];
-
-r1tor2 = jtraj(lur3.model.getpos(), r2startpos, steps);
-
-for i = 1:length(r1tor2)
-    
-    lur3.model.animate(r1tor2(i,:));
-
-        drawnow();
-end
-
-
-%% r2 to intermediary
-
-r2tointermediarytraj = jtraj(lur3.model.getpos(), intermediary, steps);
-
-for i = 1:length(r2tointermediarytraj)
-    
-    lur3.model.animate(r2tointermediarytraj(i,:));
-
-        drawnow();
-end
-
-%% intermediary to r2final
-
-r2finalpos = [-0.2044         0   -0.8353   -1.0597    0.3491    1.5708         0];
-
-intermediarytor2finaltraj =  jtraj(lur3.model.getpos(), r2finalpos, steps);
-
-for i = 1:length(intermediarytor2finaltraj)
-    
-    lur3.model.animate(intermediarytor2finaltraj(i,:));
-
-        drawnow();
-end
-
-% R2 = TTR.CreateTT(0.325,-0.55,0.72, 0);
-PlaceObject('testTubeR.ply', [-0.325,-0.55,0.72]);
-
-
-
-%% R2toG1
-g1startpos = [-0.5429         0   -0.6857   -1.2480    0.3491    1.5708         0];
-
-r2tog1traj = jtraj(lur3.model.getpos(), g1startpos, steps);
-
-
-for i = 1:length(r2tog1traj)
-    
-    lur3.model.animate(r2tog1traj(i,:));
-
-        drawnow();
-end
-
-%% g1 to intermediary
-
-g1starttointermediary = jtraj(lur3.model.getpos(), intermediary, steps);
-
-
-for i = 1:length(g1starttointermediary)
-    
-    lur3.model.animate(g1starttointermediary(i,:));
-
-        drawnow();
-end
-
-g1endpos = [-0.0100    0.3989   -0.6233   -1.3893    0.3491    1.5708         0];
-
-intermediarytoj1end = jtraj(lur3.model.getpos(), g1endpos ,steps);
-
-for i = 1:length(intermediarytoj1end)
-    
-    lur3.model.animate(intermediarytoj1end(i,:));
-
-        drawnow();
-end
-
-PlaceObject('testTubeG.ply', [0.075,-0.48,0.72]);

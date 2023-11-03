@@ -1,4 +1,4 @@
-function RaiseRobot(robot, currentpos, testtube)
+function LowerRobot(robot, currentpos, testtube)
 
 steps = 100;
 
@@ -30,5 +30,5 @@ raisetraj = jtraj(currentpos, q,steps);
                     drawnow();
 
                 end
-    end
+            end
 end
