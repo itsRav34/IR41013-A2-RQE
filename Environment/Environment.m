@@ -7,9 +7,8 @@ hold on
 
 gui = GUI;
 
-<<<<<<< Updated upstream
 % tableheight = 0.7;
-=======
+
 
 %% SAFETY OBJECTS
 %Placement of floor, brickwalls, a light curtain 
@@ -27,8 +26,8 @@ PlaceObject('lightCurtain.ply', [0.5,1,0]);
 PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
 PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
 PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
-PlaceObject('lightCurtain5.ply', [0.5,0.8,0]);
-PlaceObject('lightCurtain6.ply', [0.5,-3.3,0]);
+PlaceObject('lightCurtain5.ply', [0.7,0.8,0]);
+PlaceObject('lightCurtain6.ply', [0.7,-3.3,0]);
 PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 
 %Placement of the two lab tables
@@ -161,7 +160,6 @@ for i = 1:length(tm5endtraj)
 end
 
 % %% MOVE LUR3 from start to sort start
->>>>>>> Stashed changes
 % 
 % fprintf('Initialising Environment...\n');
 % 

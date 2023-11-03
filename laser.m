@@ -20,11 +20,11 @@ classdef laser < handle
             % clf
             % A plane can be defined with the following point and normal vector
             planeNormal = [-1,0,0];
-            planePoint = [0.5,0,0]; %position of a person
+            planePoint = [0.7,0,0]; %position of a person
             
             % Then if we have a line (perhaps a robot's link) represented by two points:            
-            lineStartPoint = [0.5,0.8,0.5];
-            lineEndPoint = [0.5,-3.3,0.5];
+            lineStartPoint = [0.7,0.8,0.5];
+            lineEndPoint = [0.7,-3.3,0.5];
 
 
             % Then we can use the function to calculate the point of
@@ -47,7 +47,7 @@ classdef laser < handle
             % [Y,Z] = meshgrid(-2:0.1:2,-2:0.1:2);
             % X = repmat(1.5,size(Y,1),size(Y,2));
             % surf(X,Y,Z);
-            PlaceObject('personMaleCasual.ply', [0.5,0,0]);
+            PlaceObject('personMaleCasual.ply', [0.7,0,0]);
             
             % Then plot the start and end point in green and red, respectively.            
             hold on;
