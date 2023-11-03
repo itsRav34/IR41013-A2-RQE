@@ -18,16 +18,12 @@ PlaceObject('brickWallLeft.ply',[-3,2,0]);
 PlaceObject('brickWallRight.ply',[3,-4,0]);
 PlaceObject('wallDoor.ply',[0.7,-4,0]);
 
-%Placement of the two lab tables
-% PlaceObject('labTable.ply',[0,0,0.41]);
-% PlaceObject('labTable.ply',[0,-2.5,0.41]);
+PlaceObject('labTable.ply', [0.2,0.2,0]);
+PlaceObject('labTable.ply', [0.2,-1.4,0]);
 
-PlaceObject('LabTable2.ply', [0.2,0.2,0]);
-PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
-
-%Placement of rack and 3 test tubes coloured Red
+% %Placement of rack and 3 test tubes coloured Red
 % TTR = testTubeR();
-%% RED TEST TUBES %%
+% %% RED TEST TUBES %%
 % % R1 = TTR.CreateTT(-0.325,-0.48,0.72, 0);
 % PlaceObject('testTubeR.ply', [-0.325,-0.48,0.72]);
 % 
@@ -36,13 +32,13 @@ PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
 % 
 % % R3 = TTR.CreateTT(-0.325,-0.62,0.72, 0);
 % PlaceObject('testTubeR.ply', [-0.325,-0.62,0.72]);
-
-%% RED TEST TUBE RACK
+% 
+% %% RED TEST TUBE RACK
 % PlaceObject('testTubeRack.ply', [-0.3,-0.8,0.62]);
-
-%Placement of second rack and 3 test tubes coloured Blue
+% 
+% %Placement of second rack and 3 test tubes coloured Blue
 % TTB = testTubeB();
-%% BLUE TEST TUBES
+% %% BLUE TEST TUBES
 % % B1 = TTB.CreateTT(-0.125, -0.48, 0.72, 0);
 % PlaceObject('testTubeB.ply', [-0.125,-0.48,0.72]);
 % 
@@ -51,13 +47,13 @@ PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
 % 
 % % B3 = TTB.CreateTT(-0.125,-0.62,0.72, 0);
 % PlaceObject('testTubeB.ply', [-0.125,-0.62,0.72]);
-
-%% BLUE TEST TUBE RACK
+% 
+% %% BLUE TEST TUBE RACK
 % PlaceObject('testTubeRack.ply', [-0.1,-0.8,0.62]);
-
-%Placement of third rack and 3 test tubes coloured Green
-% TTG = testTubeG();
-%% GREEN TEST TUBES
+% 
+% %Placement of third rack and 3 test tubes coloured Green
+% % TTG = testTubeG();
+% %% GREEN TEST TUBES
 % % G1 = TTG.CreateTT(0.075,-0.48,0.72, 0);
 % PlaceObject('testTubeG.ply', [0.075,-0.48,0.72]);
 % 
@@ -66,22 +62,21 @@ PlaceObject('LabTable2.ply', [0.2,-1.4,0]);
 % 
 % % G3 = TTG.CreateTT(0.075,-0.62,0.72, 0);
 % PlaceObject('testTubeG.ply', [0.075,-0.62,0.72]);
-%% GREEN TEST TUBE RACK
+% %% GREEN TEST TUBE RACK
 % PlaceObject('testTubeRack.ply', [0.1,-0.8,0.62]);
 
 
-
 PlaceObject('fireExtinguisherElevated.ply', [-2.5,1.5,0.45]);
-PlaceObject('fireBlanket.ply', [-2,1.7,0.7]);
-% PlaceObject('firstAidKit.ply', [-1.2,1.6,0.7]);
+PlaceObject('fireBlanket.ply', [-1.8,1.9,0.6]);
+PlaceObject('firstAidKit.ply', [-1,1.9,1]);
+PlaceObject('cardReader.ply', [0.7,-4,0.6]);
 PlaceObject('lightCurtain.ply', [0.5,1,0]);
 PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
 PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
 PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
 PlaceObject('lightCurtain5.ply', [0.5,0.8,0]);
 PlaceObject('lightCurtain6.ply', [0.5,-3.3,0]);
-
-PlaceObject('cardReader.ply', [0.7,-4,0.6]);
+% PlaceObject('D435i.ply', [0.8,-3,1]);
 
 TTF1 = testTubeRackFilled(transl([-0.7,-1.6,0.72]));
 
@@ -99,7 +94,6 @@ baseTM5 = transl([-0.3,-1.5,0.7])*trotz(-pi);
 tm5 = TM5(baseTM5);
 tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
 tm5.model.animate(tm5startpos);
-
 
 %% TO BE DELETED %%
 tm5.model.teach(tm5.model.getpos());
