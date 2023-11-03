@@ -7,7 +7,161 @@ hold on
 
 gui = GUI;
 
+<<<<<<< Updated upstream
 % tableheight = 0.7;
+=======
+
+%% SAFETY OBJECTS
+%Placement of floor, brickwalls, a light curtain 
+% and an emergency stop button
+PlaceObject('floor.ply',[0,-1,0.01]);
+PlaceObject('brickWallX.ply',[3,2,0]);
+PlaceObject('brickWallLeft.ply',[-3,2,0]);
+PlaceObject('brickWallRight.ply',[3,-4,0]);
+PlaceObject('wallDoor.ply',[0.7,-4,0]);
+
+PlaceObject('fireExtinguisherElevated.ply', [-2.5,1.5,0.45]);
+PlaceObject('fireBlanket.ply', [-2,1.7,0.7]);
+PlaceObject('firstAidKit.ply', [-1.2,1.6,0.9]);
+PlaceObject('lightCurtain.ply', [0.5,1,0]);
+PlaceObject('lightCurtain2.ply', [-2.7,1,0]);
+PlaceObject('lightCurtain3.ply', [0.5,-3.5,0]);
+PlaceObject('lightCurtain4.ply', [-2.7,-3.5,0]);
+PlaceObject('lightCurtain5.ply', [0.5,0.8,0]);
+PlaceObject('lightCurtain6.ply', [0.5,-3.3,0]);
+PlaceObject('cardReader.ply', [0.7,-4,0.6]);
+
+%Placement of the two lab tables
+PlaceObject('labTable.ply', [0.2,0.2,0]);
+PlaceObject('labTable.ply', [0.2,-1.4,0]);
+
+%% RED TEST TUBE RACK
+REDSORTEDTTR = testTubeRack(transl(-0.9,-0.1,0.62)*trotz(deg2rad(90)));
+
+REDlocation1 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+REDlocation2 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+REDlocation3 = REDSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
+
+%% GREEN TEST TUBE RACK
+GREENSORTEDTTR = testTubeRack(transl(-0.7,-0.8,0.62)*trotz(deg2rad(90)));
+
+GREENlocation1 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+GREENlocation2 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+GREENlocation3 = GREENSORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
+
+%% BLUE TEST TUBE RACK
+BLUESORTEDTTR = testTubeRack(transl(-0.4,-0.8,0.62)*trotz(deg2rad(90)));
+
+BLUElocation1 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.119, 0.13));
+
+BLUElocation2 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.197,0.13));
+
+BLUElocation3 = BLUESORTEDTTR.model.base*transl(transl(-0.025,-0.274,0.13));
+
+%%
+TTF1 = testTubeRackFilled(transl(0.13,-2.08,0.72));
+%%
+
+fprintf('Creating LUR3\n');
+%Placement of UR3 robot
+baseLUR3 = transl([0,-0.5,0.7])*trotz(0);
+lur3 = LinearUR3(baseLUR3);
+lur3startpos = [-0.0100         0         0         0         0   -1.5708         0];
+lur3.model.animate(lur3startpos);
+PlaceObject('emergencyStopWallMounted.ply', [0.8,1.8,1]);
+
+fprintf('Creating TM5-900\n');
+%Placement of TM5-900 robot
+baseTM5 = transl([-0.3,-1.5,0.7])*trotz(-pi);
+tm5 = TM5(baseTM5);
+tm5startpos = [1.5708   -1.5708    1.5708   -1.5708   -1.5708    3.1416];
+tm5.model.animate(tm5startpos);
+
+fprintf('Press Enter to continue:\n')
+pause();
+
+fprintf('RETRIEVING SAMPLES...\n')
+
+%% TM5 MOVES FROM START POS TO TEST TUBE RACK WITH ASSORTED TEST TUBES
+
+steps = 100;
+
+tm5grabrack = [2.3562   -2.1817   -1.4600   -1.0223    1.5708    4.1233];
+
+movefrominitialtorandTT = jtraj(tm5.model.getpos(),tm5grabrack, steps);
+
+for i = 1:length(movefrominitialtorandTT)
+    
+    tm5.model.animate(movefrominitialtorandTT(i,:))
+        drawnow();
+end
+
+%% TM5 MOVES ASSORTED TEST TUBE RACK TO SORTING START POS
+TTFsortstartlocation = [-0.8602   -2.0071   -1.7453   -0.8727    1.6955    4.1233];
+
+movefromTTtostartpos = jtraj(tm5.model.getpos(), TTFsortstartlocation, steps);
+
+for i = 1:length(movefromTTtostartpos)
+    
+    tm5.model.animate(movefromTTtostartpos(i,:))
+        
+        TM5pos = transl(transl(tm5.model.fkineUTS(tm5.model.getpos())))*transl(0,0,-0.2);
+        flip = trotx(0,'deg');
+        TTF1.model.base = TM5pos*flip;
+        TTF1.model.animate(0);
+        drawnow();
+end
+
+TTRE = testTubeRackEmpty(transl(transl(TTF1.model.base)));
+
+%% TEST TUBE LOCATIONS
+
+R1o = TTRE.model.base*transl(transl(-0.176,0.164, 0.02));
+R2o = TTRE.model.base*transl(transl(-0.113,0.164,0.02));
+R3o = TTRE.model.base*transl(transl(-0.046,0.104,0.02));
+
+G1o = TTRE.model.base*transl(transl(-0.046,0.164,0.02));
+G2o = TTRE.model.base*transl(transl(-0.113,0.104,0.02));
+G3o = TTRE.model.base*transl(transl(-0.046, 0.041,0.02));
+
+B1o = TTRE.model.base*transl(transl(-0.176,0.104,0.02));
+B2o = TTRE.model.base*transl(transl(-0.176,0.041,0.02));
+B3o = TTRE.model.base*transl(transl(-0.113, 0.041,0.02));
+
+%% Create Test Tubes
+R1 = testTubeR(transl(R1o));
+R2 = testTubeR(transl(R2o));
+R3 = testTubeR(transl(R3o));
+
+G1 = testTubeG(transl(G1o));
+G2 = testTubeG(transl(G2o));
+G3 = testTubeG(transl(G3o));
+
+B1 = testTubeB(transl(B1o));
+B2 = testTubeB(transl(B2o));
+B3 = testTubeB(transl(B3o));
+
+clear TTF1;
+
+%% TM5 moves up to see all test tubes
+
+endpos = [1.5708   -1.3334    0.7854   -1.0228   -1.0472    1.5708];
+
+tm5endtraj = jtraj(tm5.model.getpos(), endpos, steps);
+
+for i = 1:length(tm5endtraj)
+    
+    tm5.model.animate(tm5endtraj(i,:))
+
+        drawnow();
+end
+
+% %% MOVE LUR3 from start to sort start
+>>>>>>> Stashed changes
 % 
 % fprintf('Initialising Environment...\n');
 % 
