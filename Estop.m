@@ -1,8 +1,8 @@
 function Estop
-    f = figure;
-    ax = axes(f);
-    ax.Units = 'pixels';
-    ax.Position = [75 75 325 280];
+    % f = figure;
+    % ax = axes(f);
+    % ax.Units = 'pixels';
+    % ax.Position = [75 75 325 280];
     c = uicontrol;
     c.String = 'STOP';
     c.Callback = @pauseScript;
