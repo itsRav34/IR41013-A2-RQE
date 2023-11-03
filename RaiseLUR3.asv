@@ -1,0 +1,14 @@
+function RaiseLUR3(robot, currentpos)
+
+steps = 100;
+
+raisetraj = jtraj(currentpos, transl(currentpos)*transl(0.13),steps);
+
+    for i = 1:steps
+        
+        robot.model.animate(raisetraj(i,:))
+        drawnow();
+
+    end
+
+end
